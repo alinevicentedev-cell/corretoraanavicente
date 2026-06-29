@@ -14,8 +14,12 @@ html,body{margin:0;min-height:100%;background:#0a0a0d;color:#f3efe6;font-family:
 (async function(){
   const response = await fetch('/site.html', { cache: 'no-store' });
   let html = await response.text();
-  const fix = '<style>.brand{align-items:center!important}.brand .role{display:none!important}</style>';
+  const fix = '<style>.brand{align-items:center!important}.brand .role{display:none!important}.foot-bottom .dev-credit{color:var(--gold);font-weight:400}</style>';
+  const credit = '<p class="dev-credit">Desenvolvido por Aline Flores</p>';
   html = html.replace('</head>', fix + '</head>');
+  if (!html.includes('Desenvolvido por Aline Flores')) {
+    html = html.replace('      <p class="disc">As avaliações seguem a ABNT NBR 14.653-2 e as resoluções do sistema COFECI/CRECI.</p>', '      <p class="disc">As avaliações seguem a ABNT NBR 14.653-2 e as resoluções do sistema COFECI/CRECI.</p>\n      ' + credit);
+  }
   document.open();
   document.write(html);
   document.close();
